@@ -84,17 +84,17 @@ class LiveContest(models.Model):
     duration = models.IntegerField()
     active = models.BooleanField(default=True)
 
-# 9. Multi-Language Support (Handled in Sandbox Execution)
+# task 9 Multi-Language Support (Handled in Sandbox Execution)
 class LanguageSupport(models.Model):
     language = models.CharField(max_length=50)
     compiler = models.CharField(max_length=255)
 
-# 10. Group Contests
+# task 10 Group Contests
 class Team(models.Model):
     name = models.CharField(max_length=255)
     members = models.ManyToManyField(CustomUser)
 
-# 11. API for External Evaluation (Using Django Rest Framework)
+# task 11 API for External Evaluation (Using Django Rest Framework)
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -106,8 +106,31 @@ class CodeEvaluationAPI(APIView):
         output = execute_code(code, language)
         return Response({"output": output}, status=status.HTTP_200_OK)
 
+# task 12 Admin Panel (Django Admin Customization)
+from django.contrib import admin
+
+admin.site.register(CustomUser)
+admin.site.register(Problem)
+admin.site.register(Contest)
+admin.site.register(Leaderboard)
+admin.site.register(Submission)
+
+# task 13 Problem Recommendation System (Using Past Data Analysis)
+class ProblemRecommendation(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    recommended_problems = models.ManyToManyField(Problem)
+
+# task 14 Achievements & Badges
+class Achievement(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    date_earned = models.DateTimeField(auto_now_add=True)
 
 
 
-    timestamp = models.DateTimeField(auto_now_add=True)
 
+
+
+
+    
