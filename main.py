@@ -127,6 +127,34 @@ class Achievement(models.Model):
     description = models.TextField()
     date_earned = models.DateTimeField(auto_now_add=True)
 
+# task 15 Automated Test Case Generator (Basic Implementation)
+def generate_test_cases():
+    return [{'input': '2\n3 4', 'output': '7'}, {'input': '5\n6 7', 'output': '13'}]
+
+# task 16 Submission History Tracker
+class SubmissionHistory(models.Model):
+    submission = models.ForeignKey(Submission, on_delete=models.CASCADE)
+    verdict = models.CharField(max_length=50)
+
+# task 17 Discussion Forum
+class Discussion(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
+    comment = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+# task 18 Problem Difficulty Rating
+class ProblemDifficulty(models.Model):
+    problem = models.OneToOneField(Problem, on_delete=models.CASCADE)
+    difficulty = models.FloatField(default=0.0)
+
+# task 19 Secure Backup & Recovery
+def backup_data():
+    os.system('pg_dump mydatabase > backup.sql')
+
+def restore_data():
+    os.system('psql mydatabase < backup.sql')
+
 
 
 
