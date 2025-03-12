@@ -71,5 +71,43 @@ class Contest(models.Model):
     end_time = models.DateTimeField()
     problems = models.ManyToManyField(Problem)
 
+# task 7 Rating System
 
+class UserRating(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    rating = models.IntegerField(default=1200)
+
+# task 8 live coding competition
+
+class LiveContest(models.Model):
+    contest = models.OneToOneField(Contest, on_delete=models.CASCADE)
+    duration = models.IntegerField()
+    active = models.BooleanField(default=True)
+
+# 9. Multi-Language Support (Handled in Sandbox Execution)
+class LanguageSupport(models.Model):
+    language = models.CharField(max_length=50)
+    compiler = models.CharField(max_length=255)
+
+# 10. Group Contests
+class Team(models.Model):
+    name = models.CharField(max_length=255)
+    members = models.ManyToManyField(CustomUser)
+
+# 11. API for External Evaluation (Using Django Rest Framework)
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+
+class CodeEvaluationAPI(APIView):
+    def post(self, request):
+        code = request.data.get("code")
+        language = request.data.get("language")
+        output = execute_code(code, language)
+        return Response({"output": output}, status=status.HTTP_200_OK)
+
+
+
+
+    timestamp = models.DateTimeField(auto_now_add=True)
 
