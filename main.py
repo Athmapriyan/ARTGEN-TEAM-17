@@ -155,8 +155,12 @@ def backup_data():
 def restore_data():
     os.system('psql mydatabase < backup.sql')
 
-
-
+# task 20 Analytics Dashboard (Basic Model)
+class Analytics(models.Model):
+    contest = models.ForeignKey(Contest, on_delete=models.CASCADE)
+    total_submissions = models.IntegerField()
+    average_score = models.FloatField()
+    top_performer = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
 
 
