@@ -47,3 +47,29 @@ SUPPORTED_LANGUAGES = {
     'java': 'javac'
 }
 
+def execute_code(code, language):
+    filename = f'temp_code.{language}'
+    with open(filename, 'w') as f:
+        f.write(code)
+    try:
+        result = subprocess.run([SUPPORTED_LANGUAGES.get(language, 'python3'), filename], capture_output=True, text=True, timeout=5)
+        return result.stdout
+    except subprocess.TimeoutExpired:
+        return "Execution Timed Out"
+
+# task 5 Plagiarism Detection 
+
+def check_plagiarism(submissions):
+    code_texts = [sub.code for sub in submissions]
+    return len(set(code_texts)) != len(code_texts)
+
+# task 6 Contest Scheduling
+
+class Contest(models.Model):
+    name = models.CharField(max_length=255)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+    problems = models.ManyToManyField(Problem)
+
+
+
